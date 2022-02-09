@@ -9,6 +9,8 @@ App.use((req, res, next) => {
     console.log(req.method, req.url);
     next();
 })
+App.set("view engine", "ejs");
+App.use(Express.static('public'))
 
 // listen
 App.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
