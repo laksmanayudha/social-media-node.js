@@ -41,3 +41,47 @@ exports.apiCreateUser = async (req, res) => {
     }
 
 }
+
+exports.login = async (req, res) => {
+    let userFind = await UserModel.findOne({ "username":req.body.username }).exec()
+    
+    if( !userFind ){
+        res.send({
+            message: `Wrong username or password`,
+            authenticated: false,
+            statusCode: 400
+        })
+    }else{
+        // check password
+        let password = cryptr.decrypt(userFind.password)
+        if ( password != req.body.password){
+            res.send({
+                message: `Wrong username or password`,
+                authenticated: false,
+                statusCode: 400
+            })
+        }else{
+            // generate token
+            let token = JWT.sign(
+                { uid: userFind.__id, username: userFind.username, email: userFind.email },
+                process.env.SecretKey
+            )
+
+            let dataPass = {
+                username: userFind.username,
+                fullname: userFind.fullname,
+                email: userFind.email,
+                tokenType: 'Bearer',
+                token: token
+            }
+
+            // send data
+            res.send({
+                message: `success login`,
+                authenticated: true,
+                statusCode: 200,
+                results: dataPass
+            })
+        }
+    }
+}

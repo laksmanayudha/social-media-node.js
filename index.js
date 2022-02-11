@@ -2,9 +2,11 @@ const Express = require('express');
 const App = Express();
 const Dotenv = require('dotenv');
 const PORT = 3000;
+const cookieParser = require("cookie-parser")
 
 // setting middleware
-Dotenv.config({ path: "./config/config.env" })
+Dotenv.config({ path: "./config/config.env" });
+App.use(cookieParser())
 App.use(Express.json());
 App.use(Express.urlencoded({ extended: true }))
 App.use((req, res, next) => {

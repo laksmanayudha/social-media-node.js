@@ -1,7 +1,33 @@
 const fetch = require("node-fetch");
 
 exports.loginView = (req, res) => {
-    res.render("login")
+    res.render("login", {message: req.query.message})
+}
+
+exports.loginPost = async (req, res) => {
+    
+    // construct request
+    const host = "http://" + req.get("host")
+    let reqData = {
+        method: "POST",
+        body: JSON.stringify(req.body),
+        headers: {"Content-Type": "application/json"}
+    }
+
+    // send request to API
+    let data = await fetch( host + "/api/user/login", reqData )
+    data = await data.json()
+
+    // check if authenticated
+    if( data.authenticated ){
+        // set cookie
+        res.cookie("token", data.results.token);
+        res.redirect("/posts")
+    }else{
+        res.redirect(`/login?message=${data.message}`)
+    }
+
+
 }
 
 exports.signUpView = (req, res) => {
