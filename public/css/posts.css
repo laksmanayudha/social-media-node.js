@@ -116,6 +116,11 @@ i{
     object-fit: cover;
 }
 
+.create-images{
+    height: 100%;
+    width: 100%;
+}
+
 .insert-data{
     height: 90%;
 }

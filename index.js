@@ -3,10 +3,12 @@ const App = Express();
 const Dotenv = require('dotenv');
 const cookieParser = require("cookie-parser");
 const Middleware = require("./module/middleware");
+const FileUpload = require("express-fileupload");
 const PORT = 3000;
 
 // setting middleware
 Dotenv.config({ path: "./config/config.env" });
+App.use(FileUpload())
 App.use(cookieParser())
 App.use(Express.json());
 App.use(Express.urlencoded({ extended: true }))
