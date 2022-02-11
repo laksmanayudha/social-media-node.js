@@ -1,22 +1,18 @@
 const Express = require('express');
 const Router = Express.Router();
+const UserViewControllers = require("../controllers/front/UserViewControllers");
+const PostControllers = require("../controllers/front/PostControllers");
+const UserApiControllers = require("../controllers/back/UserApiControllers");
 
 
-// Homepages
-Router.get("/", (req, res) => {
-    res.render('login')
-})
+// FrontEnd
+Router.get("/", UserViewControllers.loginView)
+Router.get("/login", UserViewControllers.loginView)
+Router.get("/signup", UserViewControllers.signUpView)
+Router.post("/user/create", UserViewControllers.createUser)
+Router.get("/posts", PostControllers.postsView);
 
-Router.get("/login", (req, res) => {
-    res.render('login')
-})
-
-Router.get("/signup", (req, res) => {
-    res.render('signup')
-})
-
-Router.get("/posts", (req, res) => {
-    res.render("posts");
-})
+// API BackEnd
+Router.post("/api/user/create", UserApiControllers.apiCreateUser)
 
 module.exports = Router;
