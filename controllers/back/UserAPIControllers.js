@@ -63,7 +63,7 @@ exports.login = async (req, res) => {
         }else{
             // generate token
             let token = JWT.sign(
-                { uid: userFind.__id, username: userFind.username, email: userFind.email },
+                { uid: userFind.__id, username: userFind.username, email: userFind.email},
                 process.env.SecretKey
             )
 

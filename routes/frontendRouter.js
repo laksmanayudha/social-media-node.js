@@ -12,7 +12,7 @@ Router.post("/login/post", UserControllers.loginPost)
 Router.get("/signup", UserControllers.signUpView)
 Router.post("/user/create", UserControllers.createUser)
 
-Router.use(Middleware.checkTokenCookies)
+Router.use(Middleware.Authorization)
 Router.get("/posts", PostControllers.postsView);
 
 module.exports = Router;
