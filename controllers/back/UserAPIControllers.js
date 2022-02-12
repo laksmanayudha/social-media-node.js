@@ -27,15 +27,15 @@ exports.apiCreateUser = async (req, res) => {
 
         if ( createData ){
             res.send({
-                message: `Successfull to create data`,
+                message: `Successfull to create account`,
                 isAvailable: true,
                 statusCode: 200
             })
         }else{
             res.send({
-                message: `Failed to create data`,
+                message: `Failed to create account`,
                 isAvailable: false,
-                statusCode: 200
+                statusCode: 500
             })
         }
     }

@@ -1,11 +1,11 @@
 const JWTVerify = require("./JWTVerify")
 
-exports.Authorization = (req, res, next) => {
-    console.log(req.cookies.token)
-    if(req.cookies.token){
+exports.Authorization = async (req, res, next) => {
+    // console.log(req.headers.authorization)
+    if(req.headers.authorization){
         
         // authorization
-        if( JWTVerify.JWTVerify(req.cookies.token)){
+        if( await JWTVerify.JWTVerify(req.headers.authorization)){
             next()
         }else{
             // res.redirect("/login")
@@ -14,6 +14,14 @@ exports.Authorization = (req, res, next) => {
     }else{
         // res.redirect("/login")
         res.status(400).send({message: `not authorize user`})
+    }
+}
+
+exports.checkToken = (req, res , next) => {
+    if(req.cookies.token){
+        next()
+    }else{
+        res.status(400).redirect("/login")
     }
 }
 

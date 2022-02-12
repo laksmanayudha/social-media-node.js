@@ -36,6 +36,7 @@ exports.loginPost = async (req, res) => {
 exports.signUpView = (req, res) => {
     res.render("signup", {message: req.query.message})
 }
+
 exports.createUser = async (req, res) => {
 
     // check confirm password
@@ -53,13 +54,18 @@ exports.createUser = async (req, res) => {
         //     .then(response => response.json())
         //     .then(response => console.log("hello", response))
 
-        let data = await fetch(host + "/api/user/create", reqData)
-        data = await data.json()
+        try{
+            let data = await fetch(host + "/api/user/create", reqData);
+            data = await data.json();
 
-        if( data.isAvailable ){
-            res.redirect("/login")
-        }else{
-            res.redirect(`/signup?message=${data.message}`)
+            if( data.isAvailable ){
+                res.redirect(`/login?message=${data.message}`);
+            }else{
+                res.redirect(`/signup?message=${data.message}`);
+            }
+        }catch(err){
+            console.log(err);
+            res.redirect(`/signup?message=${data.message}`);
         }
     }
 

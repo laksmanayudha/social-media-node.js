@@ -6,13 +6,16 @@ const Middleware = require("../module/middleware");
 
 
 // FrontEnd
+//user
 Router.get("/", UserControllers.loginView)
 Router.get("/login", UserControllers.loginView)
 Router.post("/login/post", UserControllers.loginPost)
 Router.get("/signup", UserControllers.signUpView)
 Router.post("/user/create", UserControllers.createUser)
 
-Router.use(Middleware.Authorization)
+// post
+Router.use(Middleware.checkToken)
 Router.get("/posts", PostControllers.postsView);
+Router.post("/post/create", PostControllers.createPost)
 
 module.exports = Router;
