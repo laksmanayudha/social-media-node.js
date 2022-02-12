@@ -46,7 +46,7 @@ i{
     object-fit: cover;
 }
 
-.post-container{
+.post-container, .message{
     width: 600px;
 }
 

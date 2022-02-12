@@ -5,7 +5,9 @@ exports.Authorization = async (req, res, next) => {
     if(req.headers.authorization){
         
         // authorization
-        if( await JWTVerify.JWTVerify(req.headers.authorization)){
+        let userData = await JWTVerify.JWTVerify(req.headers.authorization)
+        if( userData ){
+            req.user = userData
             next()
         }else{
             // res.redirect("/login")

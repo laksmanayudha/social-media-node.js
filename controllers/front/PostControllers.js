@@ -1,51 +1,67 @@
 const FormData = require("form-data");
 const fetch = require("node-fetch");
+const fs = require('fs');
+const Path = require("path");
+const RandomString = require("../../module/RandomString");
+
 
 exports.postsView = (req, res) => {
-    res.render("posts");
+    res.render("posts", {message: req.query.message});
 }
 
 exports.createPost = async (req, res) => {
-    const host = "http://" + req.get("host")
+    const host = "http://" + req.get("host");
+    let data = req.files.imageData;
+    let caption = req.body.caption
 
-    // create post request
-    let formData = new FormData();
-    formData.append("imageData", "JSON.stringify(req.files.imageData)");
-    formData.append("caption", req.body.caption);
+    // mv file
+    let newName = RandomString(25) + data.mimetype.replace("image/", ".");
+    let dirName = Path.join(__dirname, "../../public/temp-front/")
 
-    let config = {
-        method: 'post',
-        body: formData,
-        headers: {
-            'Authorization':req.cookies.token
-        }
-    }
+    data.mv(dirName + newName, function(err, result){
+        if(err) console.log(err)
+        if(result) console.log("success")
+    })
 
-    // let config = {
-    //     method: 'post',
-    //     body: JSON.stringify({
-    //         caption: req.body.caption,
-    //         imageData: req.files.imageData
-    //     }),
-    //     headers: {
-    //         "Content-Type":"application/json"
-    //     }
-    // }
+    // create form data
+    let form = new FormData()
+    form.append("imageData", fs.createReadStream(dirName + newName))
 
-    // send create post request to API
     try{
-        let data = await fetch(host + "/api/post/create", config);
-        data = await data.json()
+        
+        // api save images
+        let dataImage = await fetch(host + "/api/images/save", {
+            method: "post",
+            body: form,
+            headers: {'Authorization':req.cookies.token}
+        });
+        dataImage = await dataImage.json()
 
-        console.log(data)
+        // delete image file from local
+        fs.unlinkSync(dirName + newName)
 
-        // if (data.success){
-        //     res.redirect("/posts")
-        // }else{
-        //     res.redirect("/posts")
-        // }
+        // api insert post
+        let dataPost = await fetch(host + "/api/post/create",{
+            method: "post",
+            body: JSON.stringify({
+                caption: caption,
+                imageData: dataImage.temp
+            }),
+            headers: {
+                'Authorization': req.cookies.token,
+                'Content-Type': 'application/json'
+            }
+        });
+        dataPost = await dataPost.json()
+        console.log(dataPost)
+
+        if (dataPost){
+            res.redirect(`/posts?message=${dataPost.message}`)
+        }else{
+            res.redirect(`/posts?message=${dataPost.message}`)
+        }
     }catch(err){
-        // console.log(err)
+        console.log(err)
         res.redirect("/posts")
     }
 }

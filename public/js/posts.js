@@ -21,7 +21,6 @@ $(document).ready(function(){
 
     // close create posts
     $("#closeButton").on("click",  async function(){
-
         let imageData = $("#imageDataCover").attr("src").split('/')
         imageData = imageData[imageData.length-1]
 
@@ -30,6 +29,26 @@ $(document).ready(function(){
         $("#createImageData").removeAttr("hidden")
         $("#imageDataCover").attr("hidden", true).attr("src", " ")
         $("textarea").val('')
+        $("#createPostButton").prop("disabled", true)
+
+        // delete uploaded file
+        // console.log(imageData)
+        let config = {
+            method: "post",
+            body: JSON.stringify({
+                imageName: imageData
+            }),
+            headers: {
+                "Content-Type":"application/json",
+                "Authorization":getCookie("token")
+            }
+        }
+        await fetch("/api/images/delete", config);
+    })
+
+    $("#createPostButton").on("click", async function(){
+        let imageData = $("#imageDataCover").attr("src").split('/')
+        imageData = imageData[imageData.length-1]
 
         // delete uploaded file
         // console.log(imageData)
@@ -77,6 +96,7 @@ $(document).ready(function(){
                     // show image when selected
                     $("#createImageData").attr("hidden", true)
                     $("#imageDataCover").removeAttr("hidden").attr("src", response.temp)
+                    $("#createPostButton").removeAttr("disabled")
                 }else{
                     // set value to input if not image uploaded
                     $("#createImageData").val('')

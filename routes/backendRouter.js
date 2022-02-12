@@ -13,6 +13,7 @@ Router.post("/user/login", UserApiControllers.login)
 // image
 Router.post("/images", Middleware.Authorization, ImageAPIControllers.moveImage)
 Router.post("/images/delete", Middleware.Authorization, ImageAPIControllers.deleteImage)
+Router.post("/images/save", Middleware.Authorization, ImageAPIControllers.saveImage)
 
 //post
 Router.post("/post/create", Middleware.Authorization, PostAPIControllers.apiCreatePost)

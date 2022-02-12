@@ -1,23 +1,28 @@
-// signUp
+// craete post
 $(document).ready(function(){
 
-    $("#buttonSignUp").on("click", function(){
+    $("#createPostButton").on("click", async function(e){
+        let imageData = $("#createImageData").prop("files")[0]
+        let caption = $("#caption").val()
 
-        let req = {
-            method: "POST",
+        console.log(imageData)
+
+        let formData = new FormData();
+        formData.append("caption", caption)
+        formData.append("imageData", imageData)
+
+        let config = {
+            method: 'post',
             body: JSON.stringify({
-                username: $("input[name=username]").val(),
-                email: $("input[name=email]").val(),
-                password: $("input[name=password]").val(),
-                fullname: $("input[name=fullname]").val(),
-                confirmPassword: $("input[name=confirmPassword]").val(),
+                caption: caption,
+                
             }),
-    
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json'
             }
         }
-    
-        fetch("/user/create", req)
+
+        let dataFinal = await fetch('/post/create', config)
     })
+
 })

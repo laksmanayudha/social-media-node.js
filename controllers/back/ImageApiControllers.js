@@ -1,4 +1,4 @@
-const Path = require("path")
+const Path = require("path");
 const RandomString = require("../../module/RandomString");
 const fs = require('fs');
 
@@ -23,6 +23,29 @@ exports.moveImage = (req, res) => {
             message: 'ok', 
             valid: true,
             temp: `http://${req.get("host")}/temp/${newName}`
+        })
+    }
+}
+
+exports.saveImage = (req, res) => {
+    // console.log(req.files)
+    let data = req.files.imageData;
+    if ( !data.mimetype.includes('image') ){
+        res.send({
+            message: `fail`, valid: false
+        })
+    }else{
+        let newName = RandomString(25) + data.mimetype.replace("image/", ".");
+        let dirName = Path.join(__dirname, "../../public/images/")
+
+        data.mv(dirName + newName, function(err, result){
+            console.log("moved to /images")
+        })
+        
+        res.send({
+            message: 'ok', 
+            valid: true,
+            temp: `http://${req.get("host")}/images/${newName}`
         })
     }
 }
