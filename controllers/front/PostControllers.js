@@ -9,7 +9,12 @@ exports.postsView = async (req, res) => {
     const host = "http://" + req.get("host");
 
     // get all post data
-    let postsData = await fetch(host + "/api/post/all")
+    let postsData = await fetch(host + "/api/post/all", {
+        method: 'get',
+        headers: {
+            "Authorization":req.cookies.token
+        }
+    })
     postsData = await postsData.json();
     console.log(req.user)
 
@@ -69,4 +74,30 @@ exports.createPost = async (req, res) => {
         console.log(err)
         res.redirect("/posts")
     }
+}
+
+exports.deletePost = async (req, res) => {
+    const host = "http://" + req.get("host");
+    // console.log(req.params.id)
+
+    try{
+        let postDelete = await fetch(host + "/api/post/delete/" + req.body.postId, {
+            method: "delete",
+            headers: {
+                "Authorization":req.cookies.token
+            }
+        })
+        postDelete = await postDelete.json()
+
+        if (postDelete){
+            res.redirect(`/posts?message=${postDelete.message}`)
+        }else{
+            res.redirect(`/posts?message=${postDelete.message}`)
+        }
+    }catch(err){
+        console.log(err)
+        res.redirect("/posts")
+
+    }
+    
 }

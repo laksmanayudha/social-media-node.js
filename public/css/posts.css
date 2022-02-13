@@ -3,6 +3,7 @@
     right: 0;
     left: 0;
     top: 0;
+    z-index: 3;
 }
 .nav-container{
     width: 70%;
@@ -92,6 +93,7 @@ i{
     right: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.85);
+    z-index: 4;
 }
 
 .create-post{
@@ -151,6 +153,54 @@ i{
 
 .fa-heart{
     transition: 0.3s;
+}
+.more-container{
+    position: relative;
+}
+
+/* .more-container i{
+    position: relative;
+    width: 100px;
+    background-color: green;
+    bottom: 10px;
+    z-index: 1080;
+} */
+
+.options{
+    position: absolute;
+    width: 150px;
+    /* border: black 1px solid; */
+    /* background-color: red; */
+    left: 18px;
+    top: -10px;
+    z-index: 2;
+    font-size: 12pt;
+    transition: 0.5s;
+}
+
+.options a:hover, .options button:hover{
+    color: black !important;
+    font-weight: bold;
+    transition: .1s;
+}
+
+.options a{
+    cursor: pointer;
+}
+
+#deletePost{
+    border: none;
+    background: none;
+}
+
+.hide{
+    opacity: 0;
+    visibility: hidden;
+}
+
+.unhide{
+    opacity: 1;
+    visibility: visible;
 }
 
 /* .menu i{

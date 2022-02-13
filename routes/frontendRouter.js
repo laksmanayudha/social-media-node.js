@@ -20,5 +20,6 @@ Router.get("/profile", (req, res) => {
 Router.use(Middleware.checkToken)
 Router.get("/posts", PostControllers.postsView);
 Router.post("/post/create", PostControllers.createPost)
+Router.post("/post/delete", PostControllers.deletePost)
 
 module.exports = Router;

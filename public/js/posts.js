@@ -105,7 +105,7 @@ $(document).ready(function(){
          });
     })
 
-    // love
+    // love love love
     $(".action-love .fa-heart").on("click", function(){
         if( $(this).hasClass("far")){
             $(this).attr("class", "fa-lg ms-3 fas fa-heart text-danger")
@@ -114,9 +114,15 @@ $(document).ready(function(){
         }
     })
 
-    // $(".menu a").on("click", function(e){
-    //     e.preventDefault()
-    // })
+    // view and delete option
+    $(".more-container i").on("click", function(e){
+        let options = $(this).next()
+        options.toggleClass("hide")
+        options.toggleClass("unhide")
 
-
+        // $('body').css({
+        //     overflow: 'hidden',
+        // });
+        
+    })
 })

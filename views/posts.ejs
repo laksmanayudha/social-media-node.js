@@ -35,7 +35,7 @@
                         <div class="menu">
                             <span class="ms-4"><a href="/posts" class="text-white"><i class="fa-lg fas fa-home"></i></a></span>
                             <span class="ms-4"><a href="#" class="text-white"><i class="fa-lg fas fa-comment-medical"></i></a></span>
-                            <span class="ms-4"><a href="#" class="text-white"><i class="fa-lg far fa-plus-square" id="createPost"></i></a></span>
+                            <span class="ms-4"><i class="fa-lg far fa-plus-square" id="createPost"></i></span>
                             <span class="ms-4"><a href="#" class="text-white"><i class="fa-lg fas fa-compass"></i></a></span>
                             <span class="ms-4"><a href="#" class="text-white"><i class="fa-lg fas fa-heart"></i></a></span>
                             <span class="ms-4"><a href="/profile" class="text-white"><i class="fa-lg fas fa-user"></i></a></span>
@@ -69,7 +69,21 @@
                                                 <div class="ms-3"><strong><%= post.createdBy %> </strong></div>
                                             </div>
                                             <div class="more">
-                                                <i class="fas fa-ellipsis-v"></i>
+                                                <div class="more-container d-flex">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                    <div class="options rounded p-3 shadow bg-light hide">
+                                                        <div>
+                                                            <a class="text-decoration-none text-secondary">View</a>
+                                                        </div>
+                                                        <hr class="p-0 mt-2 mb-0">
+                                                        <div class="mt-2">
+                                                            <form action="/post/delete" method="POST">
+                                                                <input type="hidden" name="postId" id="postId" value="<%= post.postId %> ">
+                                                                <button type="submit" class="p-0 text-secondary" id="deletePost">Delete</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="file">
@@ -174,6 +188,8 @@
                 </div>
             </div>
         </div>
+
+        <br>
 
         <!-- create post -->
         <div class="create-post-container" id="createPostForm" hidden>

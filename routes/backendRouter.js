@@ -13,10 +13,12 @@ Router.post("/user/login", UserApiControllers.login)
 // image
 Router.post("/images", Middleware.Authorization, ImageAPIControllers.moveImage)
 Router.post("/images/delete", Middleware.Authorization, ImageAPIControllers.deleteImage)
+Router.post("/images/deletePost", Middleware.Authorization, ImageAPIControllers.deleteImagePost)
 Router.post("/images/save", Middleware.Authorization, ImageAPIControllers.saveImage)
 
 //post
 Router.post("/post/create", Middleware.Authorization, PostAPIControllers.apiCreatePost)
-Router.get("/post/all", PostAPIControllers.apiAll);
+Router.get("/post/all", Middleware.Authorization, PostAPIControllers.apiAll);
+Router.delete("/post/delete/:id", Middleware.Authorization, PostAPIControllers.apiDeletePost)
 
 module.exports = Router;

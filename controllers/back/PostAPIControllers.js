@@ -1,4 +1,6 @@
 const PostModel = require("../../models/mongodb/post/post");
+const fs = require('fs');
+const fetch = require("node-fetch")
 
 exports.apiCreatePost = async (req, res) => {
 
@@ -31,6 +33,7 @@ exports.apiAll = async (req, res) => {
         let postData = []
         for(let post of results){
             let newPost = {
+                postId: post._id,
                 image: post.image,
                 caption: post.caption,
                 createdBy: post.createdBy,
@@ -49,6 +52,40 @@ exports.apiAll = async (req, res) => {
     }).catch(err => {
         res.status(500).send({
             message: `Fail to get data`
+        })
+    })
+}
+
+exports.apiDeletePost = async (req, res) => {
+    const host = "http://" + req.get("host");
+    console.log(req.params.id)
+    await PostModel.findByIdAndDelete({ _id: req.params.id}).then( async results => {
+
+        let imageName = results.image.split("/")
+        imageName = imageName[imageName.length - 1]
+        console.log(imageName)
+        console.log(req.headers.authorization)
+
+        // delete from local
+        await fetch(host + "/api/images/deletePost", {
+            method: "post",
+            body:JSON.stringify({
+                imageName: imageName
+            }),
+            headers: {
+                "Content-Type":"application/json",
+                "Authorization":req.headers.authorization
+            }
+        })
+
+        console.log("helo")
+        res.status(200).send({
+            message: `Success to delete data`,
+            results: results
+        })    
+    }).catch(err => {
+        res.status(500).send({
+            message: `Failed to delete data`
         })
     })
 }

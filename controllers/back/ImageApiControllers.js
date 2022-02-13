@@ -59,3 +59,16 @@ exports.deleteImage = (req, res) => {
         console.log("no file")
     }
 }
+
+exports.deleteImagePost = (req, res) => {
+    console.log("hello")
+    try{
+        let path = Path.join(__dirname, `../../public/images/${req.body.imageName}`)
+        // console.log(path)
+        fs.unlinkSync(path)
+        res.send(true)
+    }catch(err){
+        console.log("no file")
+        res.send(false)
+    }
+}
