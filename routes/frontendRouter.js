@@ -12,6 +12,9 @@ Router.get("/login", UserControllers.loginView)
 Router.post("/login/post", UserControllers.loginPost)
 Router.get("/signup", UserControllers.signUpView)
 Router.post("/user/create", UserControllers.createUser)
+Router.get("/profile", (req, res) => {
+    res.send("/profile")
+})
 
 // post
 Router.use(Middleware.checkToken)

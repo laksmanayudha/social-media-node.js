@@ -144,6 +144,15 @@ i{
     visibility: hidden;
 }
 
+.menu a:hover{
+    color: black !important;
+    transition: .3s;
+}
+
+.fa-heart{
+    transition: 0.3s;
+}
+
 /* .menu i{
     font-size: 18px;
 } */

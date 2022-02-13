@@ -105,5 +105,18 @@ $(document).ready(function(){
          });
     })
 
+    // love
+    $(".action-love .fa-heart").on("click", function(){
+        if( $(this).hasClass("far")){
+            $(this).attr("class", "fa-lg ms-3 fas fa-heart text-danger")
+        }else{
+            $(this).attr("class", "fa-lg ms-3 far fa-heart text-black")
+        }
+    })
+
+    // $(".menu a").on("click", function(e){
+    //     e.preventDefault()
+    // })
+
 
 })

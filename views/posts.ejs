@@ -33,12 +33,12 @@
                     </div>
                     <div class="col-4 d-flex justify-content-end align-items-center">
                         <div class="menu">
-                            <span><i class="fa-lg ms-4 fas fa-home"></i></span>
-                            <span><i class="fa-lg ms-4 fas fa-comment-medical"></i></span>
-                            <span><i class="fa-lg ms-4 far fa-plus-square" id="createPost"></i></span>
-                            <span><i class="fa-lg ms-4 fas fa-compass"></i></span>
-                            <span><i class="fa-lg ms-4 fas fa-heart"></i></span>
-                            <span><i class="fa-lg ms-4 fas fa-user"></i></span>
+                            <span class="ms-4"><a href="/posts" class="text-white"><i class="fa-lg fas fa-home"></i></a></span>
+                            <span class="ms-4"><a href="#" class="text-white"><i class="fa-lg fas fa-comment-medical"></i></a></span>
+                            <span class="ms-4"><a href="#" class="text-white"><i class="fa-lg far fa-plus-square" id="createPost"></i></a></span>
+                            <span class="ms-4"><a href="#" class="text-white"><i class="fa-lg fas fa-compass"></i></a></span>
+                            <span class="ms-4"><a href="#" class="text-white"><i class="fa-lg fas fa-heart"></i></a></span>
+                            <span class="ms-4"><a href="/profile" class="text-white"><i class="fa-lg fas fa-user"></i></a></span>
                         </div>
                     </div>
                 </div>
@@ -87,7 +87,8 @@
                                                 </div>
                                             </div>
                                             <div class="likes p-2 ms-3">
-                                                <strong>200 Likes</strong>
+                                                <strong class="value">1</strong>
+                                                <strong>Likes</strong>
                                             </div>
                                             <div class="description px-4">
                                                 <p><strong><%= post.createdBy %> </strong> <%= post.caption %> </p>
