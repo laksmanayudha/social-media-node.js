@@ -27,7 +27,7 @@ exports.moveImage = (req, res) => {
     }
 }
 
-exports.saveImage = (req, res) => {
+exports.saveImage = async (req, res) => {
     // console.log(req.files)
     let data = req.files.imageData;
     if ( !data.mimetype.includes('image') ){

@@ -5,8 +5,15 @@ const Path = require("path");
 const RandomString = require("../../module/RandomString");
 
 
-exports.postsView = (req, res) => {
-    res.render("posts", {message: req.query.message});
+exports.postsView = async (req, res) => {
+    const host = "http://" + req.get("host");
+
+    // get all post data
+    let postsData = await fetch(host + "/api/post/all")
+    postsData = await postsData.json();
+    console.log(req.user)
+
+    res.render("posts", {message: req.query.message, postsData:postsData.results, user: req.user});
 }
 
 exports.createPost = async (req, res) => {
@@ -19,8 +26,7 @@ exports.createPost = async (req, res) => {
     let dirName = Path.join(__dirname, "../../public/temp-front/")
 
     data.mv(dirName + newName, function(err, result){
-        if(err) console.log(err)
-        if(result) console.log("success")
+        console.log("hello")
     })
 
     // create form data
@@ -38,7 +44,7 @@ exports.createPost = async (req, res) => {
         dataImage = await dataImage.json()
 
         // delete image file from local
-        fs.unlinkSync(dirName + newName)
+        await fs.unlinkSync(dirName + newName)
 
         // api insert post
         let dataPost = await fetch(host + "/api/post/create",{
@@ -53,7 +59,6 @@ exports.createPost = async (req, res) => {
             }
         });
         dataPost = await dataPost.json()
-        console.log(dataPost)
 
         if (dataPost){
             res.redirect(`/posts?message=${dataPost.message}`)

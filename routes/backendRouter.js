@@ -17,6 +17,6 @@ Router.post("/images/save", Middleware.Authorization, ImageAPIControllers.saveIm
 
 //post
 Router.post("/post/create", Middleware.Authorization, PostAPIControllers.apiCreatePost)
-
+Router.get("/post/all", PostAPIControllers.apiAll);
 
 module.exports = Router;

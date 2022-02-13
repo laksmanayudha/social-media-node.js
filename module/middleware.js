@@ -19,9 +19,16 @@ exports.Authorization = async (req, res, next) => {
     }
 }
 
-exports.checkToken = (req, res , next) => {
+exports.checkToken = async (req, res , next) => {
     if(req.cookies.token){
-        next()
+        // check token
+        let userData = await JWTVerify.JWTVerify(req.cookies.token)
+        if( userData ){
+            req.user = userData
+            next()
+        }else{
+            res.status(400).redirect("/login")
+        }
     }else{
         res.status(400).redirect("/login")
     }

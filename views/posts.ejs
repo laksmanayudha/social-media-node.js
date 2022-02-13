@@ -60,90 +60,54 @@
                                     <%= message %> 
                                 </div>
                             <% } %> 
-                            <div class="post-container bg-white mt-3">
-                                <div class="header p-3 d-flex justify-content-between">
-                                    <div class="username-container d-flex align-items-center">
-                                        <img src="/img/user.png" alt="">
-                                        <div class="ms-3"><strong>laksmanayudha_</strong></div>
-                                    </div>
-                                    <div class="more">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </div>
-                                </div>
-                                <div class="file">
-                                    <img src="/img/post1.jpg" alt="">
-                                </div>
-                                <div>
-                                    <div class="action mt-3 p-2 d-flex justify-content-between">
-                                        <div class="action-love">
-                                            <span><i class="fa-lg ms-3 far fa-heart"></i></span>
-                                            <span><i class="fa-lg ms-3 far fa-comment"></i></span>
-                                            <span><i class="fa-lg ms-3 fas fa-location-arrow"></i></span>
+                            <% if( postsData ) { %> 
+                                <% for(let post of postsData) {%> 
+                                    <div class="post-container bg-white mt-3">
+                                        <div class="header p-3 d-flex justify-content-between">
+                                            <div class="username-container d-flex align-items-center">
+                                                <img src="/img/user.png" alt="">
+                                                <div class="ms-3"><strong><%= post.createdBy %> </strong></div>
+                                            </div>
+                                            <div class="more">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </div>
                                         </div>
-                                        <div class="action save me-3">
-                                            <span><i class="fa-lg far fa-bookmark"></i></span>
+                                        <div class="file">
+                                            <img src="<%= post.image %> " alt="">
                                         </div>
-                                    </div>
-                                    <div class="likes p-2 ms-3">
-                                        <strong>200 Likes</strong>
-                                    </div>
-                                    <div class="description px-4">
-                                        <p><strong>laksmanayudha_</strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi expedita veniam repudiandae inventore adipisci atque ab, recusandae neque, pariatur molestiae odio accusantium ipsa sed eveniet, sunt voluptatibus deleniti repellendus esse?</p>
-                                    </div>
-                                    <div class="px-4 text-secondary">
-                                        <span>14 February 2022</span>
-                                    </div>
-                                    <div class="comments p-2 ms-3 me-3 mt-2 d-flex align-items-center border-top">
-                                        <span><i class="fa-lg far fa-grin"></i></span>
-                                        <div class="comments-container ms-2">
-                                            <input class="form-control" type="text" name="comment" placeholder="Add a comment.."> 
-                                        </div>
-                                        <button type="button" class="bg-transparent px-3 text-primary">Post</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="post-container bg-white mt-3">
-                                <div class="header p-3 d-flex justify-content-between">
-                                    <div class="username-container d-flex align-items-center">
-                                        <img src="/img/user.png" alt="">
-                                        <div class="ms-3"><strong>laksmanayudha_</strong></div>
-                                    </div>
-                                    <div class="more">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </div>
-                                </div>
-                                <div class="file">
-                                    <img src="/img/post1.jpg" alt="">
-                                </div>
-                                <div>
-                                    <div class="action mt-3 p-2 d-flex justify-content-between">
-                                        <div class="action-love">
-                                            <span><i class="fa-lg ms-3 far fa-heart"></i></span>
-                                            <span><i class="fa-lg ms-3 far fa-comment"></i></span>
-                                            <span><i class="fa-lg ms-3 fas fa-location-arrow"></i></span>
-                                        </div>
-                                        <div class="action save me-3">
-                                            <span><i class="fa-lg far fa-bookmark"></i></span>
+                                        <div>
+                                            <div class="action mt-3 p-2 d-flex justify-content-between">
+                                                <div class="action-love">
+                                                    <span><i class="fa-lg ms-3 far fa-heart"></i></span>
+                                                    <span><i class="fa-lg ms-3 far fa-comment"></i></span>
+                                                    <span><i class="fa-lg ms-3 fas fa-location-arrow"></i></span>
+                                                </div>
+                                                <div class="action save me-3">
+                                                    <span><i class="fa-lg far fa-bookmark"></i></span>
+                                                </div>
+                                            </div>
+                                            <div class="likes p-2 ms-3">
+                                                <strong>200 Likes</strong>
+                                            </div>
+                                            <div class="description px-4">
+                                                <p><strong><%= post.createdBy %> </strong> <%= post.caption %> </p>
+                                            </div>
+                                            <div class="px-4 text-secondary">
+                                                <span><%= post.date %> </span>
+                                            </div>
+                                            <div class="comments p-2 ms-3 me-3 mt-2 d-flex align-items-center border-top">
+                                                <span><i class="fa-lg far fa-grin"></i></span>
+                                                <div class="comments-container ms-2">
+                                                    <input class="form-control" type="text" name="comment" placeholder="Add a comment.."> 
+                                                </div>
+                                                <button type="button" class="bg-transparent px-3 text-primary">Post</button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="likes p-2 ms-3">
-                                        <strong>200 Likes</strong>
-                                    </div>
-                                    <div class="description px-4">
-                                        <p><strong>laksmanayudha_</strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi expedita veniam repudiandae inventore adipisci atque ab, recusandae neque, pariatur molestiae odio accusantium ipsa sed eveniet, sunt voluptatibus deleniti repellendus esse?</p>
-                                    </div>
-                                    <div class="px-4 text-secondary">
-                                        <span>14 February 2022</span>
-                                    </div>
-                                    <div class="comments p-2 ms-3 me-3 mt-2 d-flex align-items-center border-top">
-                                        <span><i class="fa-lg far fa-grin"></i></span>
-                                        <div class="comments-container ms-2">
-                                            <input class="form-control" type="text" name="comment" placeholder="Add a comment.."> 
-                                        </div>
-                                        <button type="button" class="bg-transparent px-3 text-primary">Post</button>
-                                    </div>
-                                </div>
-                            </div>
+                                <%} %> 
+                            <%}else{%> 
+                                <div>no posts available</div>
+                            <%} %> 
                         </div>
                     </div>
                     <div class="side-container col-5">
@@ -152,8 +116,8 @@
                                 <div class="profile-container d-flex align-items-center">
                                     <img src="/img/user.png" alt="" class="rounded-circle">
                                     <div class="ms-3">
-                                        <strong>laksmanayudha_</strong>
-                                        <div>Laksmana Yudha</div>
+                                        <strong><%= user.username %> </strong>
+                                        <div><%= user.fullname %> </div>
                                     </div>
                                 </div>
                                 <div class="more d-flex align-items-center">
@@ -229,7 +193,7 @@
                             <div class="caption mt-3 px-2 me-3">
                                 <div class="username-container d-flex align-items-center">
                                     <img src="/img/user.png" alt="">
-                                    <div class="ms-3"><strong>laksmanayudha_</strong></div>
+                                    <div class="ms-3"><strong><%= user.username %> </div>
                                 </div>
                                 <div class="mt-3">
                                     <textarea class="caption-input p-2 border-1 border rounded" name="caption" id="caption" cols="30" rows="30" placeholder="Write caption here..."></textarea>

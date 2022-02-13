@@ -22,3 +22,33 @@ exports.apiCreatePost = async (req, res) => {
         })
     }
 }
+
+exports.apiAll = async (req, res) => {
+    
+    await PostModel.find().then(results => {
+
+        // write data
+        let postData = []
+        for(let post of results){
+            let newPost = {
+                image: post.image,
+                caption: post.caption,
+                createdBy: post.createdBy,
+                createdAt: post.createdAt,
+                updatedAt: post.updatedAt
+            }
+            newPost.date = new Date(newPost.createdAt).toDateString()
+            postData.push(newPost)
+        }
+
+        // send data
+        res.status(200).send({
+            message: `Successfull to get data`,
+            results: postData
+        })
+    }).catch(err => {
+        res.status(500).send({
+            message: `Fail to get data`
+        })
+    })
+}
