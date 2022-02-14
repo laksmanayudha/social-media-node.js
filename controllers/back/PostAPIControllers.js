@@ -28,7 +28,7 @@ exports.apiCreatePost = async (req, res) => {
 
 exports.apiAll = async (req, res) => {
     
-    await PostModel.find().then(results => {
+    await PostModel.find().sort({"createdAt":"desc"}).then(results => {
 
         // write data
         let postData = []

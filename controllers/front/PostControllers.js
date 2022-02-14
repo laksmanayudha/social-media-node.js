@@ -16,9 +16,19 @@ exports.postsView = async (req, res) => {
         }
     })
     postsData = await postsData.json();
-    console.log(req.user)
+    // console.log(req.user)
 
-    res.render("posts", {message: req.query.message, postsData:postsData.results, user: req.user});
+    // get suggest user
+    let userData = await fetch(host + "/api/user/all", {
+        method: 'get',
+        headers: {
+            "Authorization":req.cookies.token
+        }
+    })
+    userData = await userData.json();
+    // console.log(userData)
+
+    res.render("posts", {message: req.query.message, postsData: postsData.results, user: req.user, userData: userData.results});
 }
 
 exports.createPost = async (req, res) => {

@@ -133,11 +133,6 @@ $(document).ready(function(){
 
     })
 
-    // $("#search").on("blur", function(){
-    //     let searchResult = $(".search-result")
-    //     searchResult.removeClass("unhide")
-    //     searchResult.addClass("hide")
-    // })
 
     // live search
     $("#search").on("input", async function(){
@@ -148,7 +143,12 @@ $(document).ready(function(){
         if ( input != ""){
 
     
-            let userData = await fetch("/api/user/search/" + input)
+            let userData = await fetch("/api/user/search/" + input, {
+                method: "get",
+                headers: {
+                    "Authorization": getCookie("token")
+                }
+            })
             userData = await userData.json()
             console.log(userData)
     
@@ -160,7 +160,7 @@ $(document).ready(function(){
                 for(let user of userData.results){
                     content += `
                                 <a class="text-decoration-none text-black " href="/profile?user=${user.username}">
-                                    <div class="username-container d-flex align-items-center">
+                                    <div class="username-container d-flex align-items-center mt-2">
                                         <img src="/img/user.png" alt="">
                                         <div class="ms-3"><strong>${user.username}</strong></div>
                                     </div>

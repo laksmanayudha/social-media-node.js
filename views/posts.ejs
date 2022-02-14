@@ -165,42 +165,23 @@
                                     <div><a href="" class="text-decoration-none text-black">see all</a></div>
                                 </div>
                                 <div class="list-suggest">
-                                    <div class="profile d-flex justify-content-between mt-3">
-                                        <div class="profile-container d-flex align-items-center">
-                                            <img src="/img/user.png" alt="" class="rounded-circle">
-                                            <div class="ms-3">
-                                                <strong>laksmanayudha_</strong>
-                                                <div>Laksmana Yudha</div>
+                                    <% for( let suggest of userData ){ %> 
+                                        <% if( suggest.username == user.username ) continue; %> 
+                                        <div class="profile d-flex justify-content-between mt-3">
+                                            <div class="profile-container d-flex align-items-center">
+                                                <img src="/img/user.png" alt="" class="rounded-circle">
+                                                <div class="ms-3">
+                                                    <a href="/profile?user=<%= suggest.username %> " class="text-black text-decoration-none">
+                                                        <strong><%= suggest.username %> </strong>
+                                                    </a>
+                                                    <div><%= suggest.fullname %> </div>
+                                                </div>
+                                            </div>
+                                            <div class="more d-flex align-items-center">
+                                                <a href="" class="text-decoration-none">follow</a>
                                             </div>
                                         </div>
-                                        <div class="more d-flex align-items-center">
-                                            <a href="" class="text-decoration-none">follow</a>
-                                        </div>
-                                    </div>
-                                    <div class="profile d-flex justify-content-between mt-3">
-                                        <div class="profile-container d-flex align-items-center">
-                                            <img src="/img/user.png" alt="" class="rounded-circle">
-                                            <div class="ms-3">
-                                                <strong>laksmanayudha_</strong>
-                                                <div>Laksmana Yudha</div>
-                                            </div>
-                                        </div>
-                                        <div class="more d-flex align-items-center">
-                                            <a href="" class="text-decoration-none">follow</a>
-                                        </div>
-                                    </div>
-                                    <div class="profile d-flex justify-content-between mt-3">
-                                        <div class="profile-container d-flex align-items-center">
-                                            <img src="/img/user.png" alt="" class="rounded-circle">
-                                            <div class="ms-3">
-                                                <strong>laksmanayudha_</strong>
-                                                <div>Laksmana Yudha</div>
-                                            </div>
-                                        </div>
-                                        <div class="more d-flex align-items-center">
-                                            <a href="" class="text-decoration-none">follow</a>
-                                        </div>
-                                    </div>
+                                    <% } %> 
                                 </div>
                             </div>
                         </div>

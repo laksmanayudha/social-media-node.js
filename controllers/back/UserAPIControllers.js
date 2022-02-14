@@ -3,6 +3,22 @@ const JWT = require("jsonwebtoken");
 const Cryptr = require("cryptr");
 const cryptr = new Cryptr(process.env.SecretKey);
 
+exports.apiAll = async (req, res) => {
+    
+    await UserModel.find().limit(5).then(results => {
+
+        // send data
+        res.status(200).send({
+            message: `Successfull to get data`,
+            results: results
+        })
+    }).catch(err => {
+        res.status(500).send({
+            message: `Fail to get data`
+        })
+    })
+}
+
 exports.apiCreateUser = async (req, res) => {
     
     // find available username
