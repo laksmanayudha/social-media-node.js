@@ -74,6 +74,26 @@ exports.logout = (req, res) => {
     res.redirect("/login")
 }
 
-exports.profile = (req, res) => {
-    res.render("profile", {user: req.user})
+exports.profile = async (req, res) => {
+    const host = "http://" + req.get("host")
+
+    if( !req.query.user ){
+        res.redirect("/posts")
+    }
+
+    // send request to API
+    try{
+        let data = await fetch( host + "/api/post/findPostByUser/" + req.query.user)
+        data = await data.json();
+
+        // render profile
+        if( data ){
+            res.render("profile", {user: req.user, userQuery: req.query.user, userData: data.results})
+        }else{
+            res.redirect("/posts")
+        }
+    }catch(err){
+        console.log(err)
+        res.redirect("/posts")
+    }
 }

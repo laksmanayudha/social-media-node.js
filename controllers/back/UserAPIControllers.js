@@ -87,7 +87,7 @@ exports.login = async (req, res) => {
 }
 
 exports.search = async (req, res) => {
-    await UserModel.find({ "username": { $regex: "^" + req.body.input + '.*' } }).then(response => {
+    await UserModel.find({ "username": { $regex: "^" + req.params.user + '.*' } }).then(response => {
         res.send({
             message: `successfull to search data`,
             statusCode: 200,
@@ -100,3 +100,4 @@ exports.search = async (req, res) => {
         })
     })
 }
+

@@ -9,7 +9,7 @@ const Middleware = require("../module/middleware");
 //user
 Router.post("/user/create", UserApiControllers.apiCreateUser)
 Router.post("/user/login", UserApiControllers.login)
-Router.post("/user/search", Middleware.Authorization, UserApiControllers.search)
+Router.get("/user/search/:user", UserApiControllers.search)
 
 // image
 Router.post("/images", Middleware.Authorization, ImageAPIControllers.moveImage)
@@ -21,5 +21,6 @@ Router.post("/images/save", Middleware.Authorization, ImageAPIControllers.saveIm
 Router.post("/post/create", Middleware.Authorization, PostAPIControllers.apiCreatePost)
 Router.get("/post/all", Middleware.Authorization, PostAPIControllers.apiAll);
 Router.delete("/post/delete/:id", Middleware.Authorization, PostAPIControllers.apiDeletePost)
+Router.get("/post/findPostByUser/:user", PostAPIControllers.findPostByUser)
 
 module.exports = Router;

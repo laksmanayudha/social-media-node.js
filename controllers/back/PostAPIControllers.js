@@ -1,4 +1,5 @@
 const PostModel = require("../../models/mongodb/post/post");
+const UserModel = require("../../models/mongodb/user/user");
 const fs = require('fs');
 const fetch = require("node-fetch")
 
@@ -88,4 +89,32 @@ exports.apiDeletePost = async (req, res) => {
             message: `Failed to delete data`
         })
     })
+}
+
+exports.findPostByUser = async (req, res) => {
+    console.log(req.params.user)
+    let dataUser = await UserModel.aggregate([
+        {
+            $match: { 'username': req.params.user}
+        },
+        {
+            $lookup: {
+                from: 'posts',
+                localField: 'username',
+                foreignField: "createdBy",
+                as: "userPosts"
+            }
+        }
+    ]).exec()
+
+    if( dataUser ){
+        res.status(200).send({
+            message: `Successful to get data`,
+            results: dataUser[0]
+        })
+    }else{
+        res.status(500).send({
+            message: `Failed to get data`
+        })
+    }
 }

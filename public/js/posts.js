@@ -148,16 +148,7 @@ $(document).ready(function(){
         if ( input != ""){
 
     
-            let userData = await fetch("/api/user/search", {
-                method: "post",
-                body: JSON.stringify({
-                    input: input
-                }),
-                headers: {
-                    "Content-Type":"application/json",
-                    "Authorization":getCookie("token")
-                }
-            })
+            let userData = await fetch("/api/user/search/" + input)
             userData = await userData.json()
             console.log(userData)
     
@@ -168,7 +159,7 @@ $(document).ready(function(){
                 let content = ``
                 for(let user of userData.results){
                     content += `
-                                <a class="text-decoration-none text-black " href="/profile">
+                                <a class="text-decoration-none text-black " href="/profile?user=${user.username}">
                                     <div class="username-container d-flex align-items-center">
                                         <img src="/img/user.png" alt="">
                                         <div class="ms-3"><strong>${user.username}</strong></div>

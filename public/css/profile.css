@@ -43,7 +43,6 @@
     bottom: 0;
     background-color: black;
     opacity: 0;
-    transition: .2s;
 }
 
 .post .opac:hover{
