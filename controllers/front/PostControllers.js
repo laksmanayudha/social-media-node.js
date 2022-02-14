@@ -30,50 +30,52 @@ exports.createPost = async (req, res) => {
     let newName = RandomString(25) + data.mimetype.replace("image/", ".");
     let dirName = Path.join(__dirname, "../../public/temp-front/")
 
-    data.mv(dirName + newName, function(err, result){
+    data.mv(dirName + newName, async function(err, result){
         console.log("hello")
+
+        // create form data
+        let form = new FormData()
+        form.append("imageData", fs.createReadStream(dirName + newName))
+
+        try{
+            
+            // api save images
+            let dataImage = await fetch(host + "/api/images/save", {
+                method: "post",
+                body: form,
+                headers: {'Authorization':req.cookies.token}
+            });
+            dataImage = await dataImage.json()
+
+            // delete image file from local
+            await fs.unlinkSync(dirName + newName)
+
+            // api insert post
+            let dataPost = await fetch(host + "/api/post/create",{
+                method: "post",
+                body: JSON.stringify({
+                    caption: caption,
+                    imageData: dataImage.temp
+                }),
+                headers: {
+                    'Authorization': req.cookies.token,
+                    'Content-Type': 'application/json'
+                }
+            });
+            dataPost = await dataPost.json()
+
+            if (dataPost){
+                res.redirect(`/posts?message=${dataPost.message}`)
+            }else{
+                res.redirect(`/posts?message=${dataPost.message}`)
+            }
+        }catch(err){
+            console.log(err)
+            res.redirect("/posts")
+        }
     })
 
-    // create form data
-    let form = new FormData()
-    form.append("imageData", fs.createReadStream(dirName + newName))
-
-    try{
-        
-        // api save images
-        let dataImage = await fetch(host + "/api/images/save", {
-            method: "post",
-            body: form,
-            headers: {'Authorization':req.cookies.token}
-        });
-        dataImage = await dataImage.json()
-
-        // delete image file from local
-        await fs.unlinkSync(dirName + newName)
-
-        // api insert post
-        let dataPost = await fetch(host + "/api/post/create",{
-            method: "post",
-            body: JSON.stringify({
-                caption: caption,
-                imageData: dataImage.temp
-            }),
-            headers: {
-                'Authorization': req.cookies.token,
-                'Content-Type': 'application/json'
-            }
-        });
-        dataPost = await dataPost.json()
-
-        if (dataPost){
-            res.redirect(`/posts?message=${dataPost.message}`)
-        }else{
-            res.redirect(`/posts?message=${dataPost.message}`)
-        }
-    }catch(err){
-        console.log(err)
-        res.redirect("/posts")
-    }
+    
 }
 
 exports.deletePost = async (req, res) => {
