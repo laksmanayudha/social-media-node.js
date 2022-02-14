@@ -73,3 +73,7 @@ exports.logout = (req, res) => {
     res.clearCookie("token")
     res.redirect("/login")
 }
+
+exports.profile = (req, res) => {
+    res.render("profile", {user: req.user})
+}

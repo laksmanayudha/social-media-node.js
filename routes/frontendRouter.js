@@ -12,10 +12,8 @@ Router.get("/login", UserControllers.loginView)
 Router.post("/login/post", UserControllers.loginPost)
 Router.get("/signup", UserControllers.signUpView)
 Router.post("/user/create", UserControllers.createUser)
-Router.get("/logout", UserControllers.logout)
-Router.get("/profile", (req, res) => {
-    res.send("/profile")
-})
+Router.get("/logout", Middleware.checkToken, UserControllers.logout)
+Router.get("/profile", Middleware.checkToken, UserControllers.profile)
 
 // post
 Router.use(Middleware.checkToken)

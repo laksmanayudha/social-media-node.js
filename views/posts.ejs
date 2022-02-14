@@ -26,7 +26,17 @@
                             <form action="">
                                 <div class="search-container text-black">
                                     <i class="fas fa-search search-icon"></i>
-                                    <input class="form-control" type="text" name="search" placeholder="search"> 
+                                    <input class="form-control" type="text" name="search" id="search" placeholder="search" autocomplete="off"> 
+                                    <div class="search-result bg-light p-3 rounded shadow w-100 hide">
+                                        <div class="user-search-profile">
+                                            <!-- <a class="text-decoration-none text-black " href="/profile">
+                                                <div class="username-container d-flex align-items-center">
+                                                    <img src="/img/user.png" alt="">
+                                                    <div class="ms-3"><strong>test</strong></div>
+                                                </div>
+                                            </a> -->
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -42,7 +52,7 @@
                                 <span class="text-white" id="userIcon">
                                     <i class="fa-lg fas fa-user"></i>
                                     <div class="profile-setting bg-light p-3 rounded shadow hide">
-                                        <div><a class="text-decoration-none text-secondary " href="/profile">Profile</a></div>
+                                        <div><a class="text-decoration-none text-secondary " href="/profile?user=<%= user.username %> ">Profile</a></div>
                                         <div class="border-top mt-2"><a class="text-decoration-none text-secondary " href="/logout">Logout</a></div>
                                     </div>
                                 </span>

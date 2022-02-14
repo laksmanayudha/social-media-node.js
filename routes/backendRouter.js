@@ -9,6 +9,7 @@ const Middleware = require("../module/middleware");
 //user
 Router.post("/user/create", UserApiControllers.apiCreateUser)
 Router.post("/user/login", UserApiControllers.login)
+Router.post("/user/search", Middleware.Authorization, UserApiControllers.search)
 
 // image
 Router.post("/images", Middleware.Authorization, ImageAPIControllers.moveImage)

@@ -227,6 +227,10 @@ i{
     position: relative;
 }
 
+.search-result{
+    position: absolute;
+}
+
 /* .menu i{
     font-size: 18px;
 } */

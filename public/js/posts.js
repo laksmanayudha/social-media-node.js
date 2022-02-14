@@ -132,4 +132,62 @@ $(document).ready(function(){
         profileSetting.toggleClass("unhide")
 
     })
+
+    // $("#search").on("blur", function(){
+    //     let searchResult = $(".search-result")
+    //     searchResult.removeClass("unhide")
+    //     searchResult.addClass("hide")
+    // })
+
+    // live search
+    $("#search").on("input", async function(){
+        let input =  $("#search").val()
+        let userResult = $(".user-search-profile")
+        let searchResult = $(".search-result")
+
+        if ( input != ""){
+
+    
+            let userData = await fetch("/api/user/search", {
+                method: "post",
+                body: JSON.stringify({
+                    input: input
+                }),
+                headers: {
+                    "Content-Type":"application/json",
+                    "Authorization":getCookie("token")
+                }
+            })
+            userData = await userData.json()
+            console.log(userData)
+    
+            // append elemnt
+            if(userData.results.length != 0){
+                searchResult.removeClass("hide")
+                searchResult.addClass("unhide")
+                let content = ``
+                for(let user of userData.results){
+                    content += `
+                                <a class="text-decoration-none text-black " href="/profile">
+                                    <div class="username-container d-flex align-items-center">
+                                        <img src="/img/user.png" alt="">
+                                        <div class="ms-3"><strong>${user.username}</strong></div>
+                                    </div>
+                                </a>
+                            `
+                }
+        
+                userResult.html(content)
+            }else{
+                userResult.html("")
+                searchResult.addClass("hide")
+                searchResult.removeClass("unhide")
+            }
+        }else{
+            userResult.html("")
+            searchResult.addClass("hide")
+            searchResult.removeClass("unhide")
+        }
+       
+    })
 })

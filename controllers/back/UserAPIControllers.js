@@ -85,3 +85,18 @@ exports.login = async (req, res) => {
         }
     }
 }
+
+exports.search = async (req, res) => {
+    await UserModel.find({ "username": { $regex: "^" + req.body.input + '.*' } }).then(response => {
+        res.send({
+            message: `successfull to search data`,
+            statusCode: 200,
+            results: response
+        })
+    }).catch(err  => {
+        res.send({
+            message: `failed to search data`,
+            statusCode: 500
+        })
+    })
+}
