@@ -146,7 +146,7 @@ i{
     visibility: hidden;
 }
 
-.menu a:hover{
+.menu i:hover{
     color: black !important;
     transition: .3s;
 }
@@ -201,6 +201,30 @@ i{
 .unhide{
     opacity: 1;
     visibility: visible;
+}
+
+.profile-setting{
+    width: 200px;
+    position: absolute;
+    right: -20px;
+    top: 35px;
+    transition: .3s;
+    /* z-index: 4; */
+}
+
+.profile-setting::after{
+    width: 10px;
+    height: 10px;
+    content: "";
+    background-color: #f8f9fa;
+    position: absolute;
+    top: -5px;
+    right: 25px;
+    transform: rotate(45deg);
+}
+
+.menu{
+    position: relative;
 }
 
 /* .menu i{

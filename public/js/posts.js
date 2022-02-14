@@ -125,4 +125,11 @@ $(document).ready(function(){
         // });
         
     })
+
+    $("#userIcon i").on("click", function(){
+        let profileSetting = $(".profile-setting")
+        profileSetting.toggleClass("hide")
+        profileSetting.toggleClass("unhide")
+
+    })
 })

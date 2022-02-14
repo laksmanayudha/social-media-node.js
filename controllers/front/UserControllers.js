@@ -38,7 +38,6 @@ exports.signUpView = (req, res) => {
 }
 
 exports.createUser = async (req, res) => {
-
     // check confirm password
     if (req.body.password != req.body.confirmPassword){
         res.redirect(`/signup?message=Password mismatch`)
@@ -68,6 +67,9 @@ exports.createUser = async (req, res) => {
             res.redirect(`/signup?message=${data.message}`);
         }
     }
+}
 
-    
+exports.logout = (req, res) => {
+    res.clearCookie("token")
+    res.redirect("/login")
 }

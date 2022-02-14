@@ -38,7 +38,15 @@
                             <span class="ms-4"><i class="fa-lg far fa-plus-square" id="createPost"></i></span>
                             <span class="ms-4"><a href="#" class="text-white"><i class="fa-lg fas fa-compass"></i></a></span>
                             <span class="ms-4"><a href="#" class="text-white"><i class="fa-lg fas fa-heart"></i></a></span>
-                            <span class="ms-4"><a href="/profile" class="text-white"><i class="fa-lg fas fa-user"></i></a></span>
+                            <span class="ms-4">
+                                <span class="text-white" id="userIcon">
+                                    <i class="fa-lg fas fa-user"></i>
+                                    <div class="profile-setting bg-light p-3 rounded shadow hide">
+                                        <div><a class="text-decoration-none text-secondary " href="/profile">Profile</a></div>
+                                        <div class="border-top mt-2"><a class="text-decoration-none text-secondary " href="/logout">Logout</a></div>
+                                    </div>
+                                </span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -79,7 +87,9 @@
                                                         <div class="mt-2">
                                                             <form action="/post/delete" method="POST">
                                                                 <input type="hidden" name="postId" id="postId" value="<%= post.postId %> ">
-                                                                <button type="submit" class="p-0 text-secondary" id="deletePost">Delete</button>
+                                                                <% if (post.createdBy == user.username) {%> 
+                                                                    <button type="submit" class="p-0 text-secondary" id="deletePost">Delete</button>
+                                                                <%} %> 
                                                             </form>
                                                         </div>
                                                     </div>
